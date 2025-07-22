@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: identity-config
+  namespace: production
+data:
+  JWT_ISSUER: "https://identity-api.anasigorta.com.tr"
+  JWT_AUDIENCE: "AnaTechProdApps"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: identity-secrets
+  namespace: production
+type: Opaque
+stringData:
+  ConnectionStrings__DefaultConnection: "Host=host.k3s.internal;Port=5433;Database=identitydb;Username=identity_user;Password=IdentityPass2024;"
+  JwtSettings__SecretKey: "ProdJwtKey2024ForAnaTech123456789"
+  Redis__ConnectionString: "host.k3s.internal:6379"
