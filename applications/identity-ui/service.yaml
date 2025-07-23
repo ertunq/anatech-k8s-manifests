@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-ui-service
+  namespace: production
+  labels:
+    app: identity-ui
+spec:
+  selector:
+    app: identity-ui
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP

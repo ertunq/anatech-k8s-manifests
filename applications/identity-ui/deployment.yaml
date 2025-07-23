@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-ui
+  namespace: production
+  labels:
+    app: identity-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: identity-ui
+  template:
+    metadata:
+      labels:
+        app: identity-ui
+    spec:
+      imagePullSecrets:
+      - name: harbor-secret
+      containers:
+      - name: identity-ui
+        image: harbor.anasigorta.com.tr/prod/identity-ui:v1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
