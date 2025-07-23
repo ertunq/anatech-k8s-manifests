@@ -17,7 +17,7 @@ spec:
       - name: harbor-secret
       containers:
       - name: identity-api
-        image: your-server-ip:8080/prod/identity-api:v1.0.0  # ArgoCD bu tag'i otomatik güncelleyecek
+        image: harbor.anasigorta.com.tr/prod/identity-api:v1.0.0  # ArgoCD bu tag'i otomatik güncelleyecek
         ports:
         - containerPort: 8080
         env:
