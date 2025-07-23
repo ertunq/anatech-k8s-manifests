@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: anatech-portal-api-ingress
+  namespace: production
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - anatech-portal-api.anasigorta.com.tr
+    secretName: anatech-portal-api-tls
+  rules:
+  - host: anatech-portal-api.anasigorta.com.tr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: anatech-portal-api-service
+            port:
+              number: 80
